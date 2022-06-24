@@ -1,0 +1,16 @@
+.btn-red{
+    background-color: #BD3C4B;
+    color: #fff;
+    &:hover {
+        background-color: #BD3C4B;
+        color: #fff;
+    }
+    &:focus {
+        background-color: #BD3C4B;
+        color: #fff;
+    }
+}
+
+a.router-link-exact-active {
+    color: black;
+}
