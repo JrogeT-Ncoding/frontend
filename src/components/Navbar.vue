@@ -29,7 +29,7 @@
           </li>
         </ul>
         <button class="btn btn-red rounded-0 my-2 my-sm-0" data-bs-toggle="modal" data-bs-target="#authModal">
-          Register or Login
+          {{ isAuthenticated ? 'Logout' : 'Register or Login' }}
         </button>
       </div>
     </div>
@@ -38,6 +38,12 @@
 
 <script>
 export default {
-  name: 'AppNavbar'
+  name: 'AppNavbar',
+  props: {
+    isAuthenticated: {
+      type: Boolean,
+      required: true
+    }
+  },
 }
 </script>

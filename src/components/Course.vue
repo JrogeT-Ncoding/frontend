@@ -28,6 +28,14 @@
           3:20hs
         </strong>
       </p>
+      <!--Continue-->
+      <div v-if="allowToEnroll" class="col-6 form-floating my-3 d-grid gap-2 p-0">
+        <button class="btn badge rounded-pill text-bg-dark py-2">
+          <small>
+            Enroll
+          </small>
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -39,6 +47,11 @@
       course: {
         type: Object,
         required: true
+      },
+      allowToEnroll: {
+        type: Boolean,
+        required: false,
+        default: true
       }
     }
   }

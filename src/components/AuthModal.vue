@@ -161,7 +161,9 @@ export default {
   },
   methods: {
     toggleNewUser() {
-      this.newUser = !this.newUser;
+      this.newUser = !this.newUser
+      //this.$store.commit("increment")
+      this.$store.commit("incrementN", 10)
     }
   }
 }
