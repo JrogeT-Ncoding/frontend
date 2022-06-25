@@ -28,7 +28,7 @@
             </router-link>
           </li>
         </ul>
-        <button class="btn btn-red rounded-0 my-2 my-sm-0" >
+        <button class="btn btn-red rounded-0 my-2 my-sm-0" data-bs-toggle="modal" data-bs-target="#authModal">
           Register or Login
         </button>
       </div>
