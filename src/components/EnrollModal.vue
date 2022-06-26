@@ -231,6 +231,7 @@ export default {
       if(this.step === 2){
         this.step++;
         this.$store.dispatch("enroll", this.course.id).then(() => {
+          this.step=1;
           let close = document.getElementById("enrollModalClose");
           close.click();
         })

@@ -10,7 +10,12 @@
         <AppSpinner/>
       </div>
     </div>
-    <div class="row mt-4">
+    <div v-else class="row mt-4">
+      <div v-if="availableCourses.length==0" class="row text-center">
+        <h3>
+          No courses to show
+        </h3>
+      </div>
       <div class="col-lg-4 col-md-6" v-for="(course) in availableCourses" v-bind:key="course">
         <AppCourse :course="course"/>
       </div>

@@ -20,17 +20,20 @@ const authModule = {
         }
     },
     actions:{
-        login({commit}, user){
+        login({commit, dispatch}, user){
             axios.post('http://localhost:8080/api/auth/login', user)
                 .then((response) => {
                     commit('setUser', response.data.data);
                     commit('setAuthenticated', true);
+                    dispatch('getAvailableCourses')
                 })
         },
-        register({commit}){
-            axios.post('http://localhost:8080/api/auth/register')
-                .then(() => {
+        register({commit, dispatch}, user){
+            axios.post('http://localhost:8080/api/auth/register', user)
+                .then((response) => {
+                    commit('setUser', response.data.data);
                     commit('setAuthenticated', true);
+                    dispatch('getAvailableCourses')
                 })
         },
         logout({commit}){
