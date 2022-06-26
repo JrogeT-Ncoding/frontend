@@ -30,9 +30,16 @@
       </p>
       <!--Continue-->
       <div v-if="allowToEnroll" class="col-6 form-floating my-3 d-grid gap-2 p-0">
-        <button class="btn badge rounded-pill text-bg-dark py-2">
+        <button @click="startEnrollment" class="btn badge rounded-pill text-bg-dark py-2" data-bs-toggle="modal" data-bs-target="#enrollModal">
           <small>
             Enroll
+          </small>
+        </button>
+      </div>
+      <div v-else-if="allowToViewDetails" class="col-6 form-floating my-3 d-grid gap-2 p-0">
+        <button class="btn badge rounded-pill text-bg-dark py-2">
+          <small>
+            View Details
           </small>
         </button>
       </div>
@@ -41,18 +48,26 @@
 </template>
 
 <script>
-  export default {
-    name: 'AppCourse',
-    props: {
-      course: {
-        type: Object,
-        required: true
-      },
-      allowToEnroll: {
-        type: Boolean,
-        required: false,
-        default: true
-      }
+export default {
+  name: 'AppCourse',
+  props: {
+    course: {
+      type: Object,
+      required: true
+    }
+  },
+  computed:{
+    allowToEnroll(){
+      return this.$store.getters.allowToEnroll(this.course.id)
+    },
+    allowToViewDetails(){
+      return this.$store.getters.allowToViewDetails(this.course.id)
+    }
+  },
+  methods: {
+    startEnrollment(){
+      this.$store.commit('startEnrollment',this.course)
     }
   }
+}
 </script>

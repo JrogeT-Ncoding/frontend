@@ -13,7 +13,7 @@
           <div class="container-fluid">
             <div class="row">
               <h4 class="text-center">
-                Register as a new student
+                {{ newUser ? 'Register as a new student' : 'Are you an existing student?' }}
               </h4>
             </div>
             <!--Register or Login-->
@@ -112,25 +112,25 @@
               <!--Third party auth-->
               <div class="col ms-5" style="font-size: 1rem;">
                 <div class="row">
-                  <button type="button" class="btn btn-gray d-flex my-2">
+                  <button type="button" class="btn bg-gray d-flex my-2">
                     <i class="bi bi-linkedin ms-0"></i>
                     <label class="mx-auto">
                       Continue with Linkedin
                     </label>
                   </button>
-                  <button type="button" class="btn btn-gray d-flex my-2">
+                  <button type="button" class="btn bg-gray d-flex my-2">
                     <i class="bi bi-facebook ms-0"></i>
                     <label class="mx-auto">
                       Continue with Facebook
                     </label>
                   </button>
-                  <button type="button" class="btn btn-gray d-flex my-2">
+                  <button type="button" class="btn bg-gray d-flex my-2">
                     <i class="bi bi-instagram ms-0"></i>
                     <label class="mx-auto">
                       Continue with Instagram
                     </label>
                   </button>
-                  <button type="button" class="btn btn-gray d-flex my-2">
+                  <button type="button" class="btn bg-gray d-flex my-2">
                     <i class="bi bi-google ms-0"></i>
                     <label class="mx-auto">
                       Continue with Google
@@ -162,8 +162,6 @@ export default {
   methods: {
     toggleNewUser() {
       this.newUser = !this.newUser
-      //this.$store.commit("increment")
-      this.$store.commit("incrementN", 10)
     }
   }
 }

@@ -1,24 +1,29 @@
-$enable-negative-margins: true
-
+$red-color: #bd3c4b
+$gray-color: #ebebeb
+.bg-
+    &red
+        background-color: $red-color
+    &gray
+        background-color: $gray-color
 .btn-
     &red
-        background-color: #BD3C4B
-        color: #fff
+        @extend .bg-red
+        color: white
         &:hover
-            background-color: #BD3C4B
-            color: #fff
+            @extend .btn-red
         &:focus
-            background-color: #BD3C4B
-            color: #fff
+            @extend .btn-red
     &gray
-        background-color: #EBEBEB
-        color: #000
+        @extend .bg-gray
         &:hover
-            background-color: #EBEBEB
-            color: #000
+            @extend .bg-gray
         &:focus
-            background-color: #EBEBEB
-            color: #000
+            @extend .bg-gray
+.border-
+    &red
+        border-color: $red-color
+    &gray
+        border-color: $gray-color
 
 a.router-link-exact-active
     color: black

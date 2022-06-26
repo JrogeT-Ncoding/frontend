@@ -8,22 +8,22 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
           <li class="nav-item dropdown mx-4">
-            <router-link class="nav-link dropdown-toggle" to="/available-courses" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <router-link class="nav-link dropdown-toggle" to="/available-courses" role="button" >
               <small>Available Courses</small>
             </router-link>
           </li>
           <li class="nav-item dropdown mx-4">
-            <router-link class="nav-link dropdown-toggle" to="/continuing-education" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <router-link class="nav-link dropdown-toggle" to="/continuing-education" role="button">
               <small>Continuing Education</small>
             </router-link>
           </li>
           <li class="nav-item dropdown mx-4">
-            <router-link class="nav-link dropdown-toggle" to="/my-courses" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <router-link class="nav-link dropdown-toggle" to="/my-courses" role="button">
               <small>My Courses</small>
             </router-link>
           </li>
           <li class="nav-item dropdown mx-4">
-            <router-link class="nav-link dropdown-toggle" to="/community" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <router-link class="nav-link dropdown-toggle" to="/community" role="button">
               <small>Community</small>
             </router-link>
           </li>
