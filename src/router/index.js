@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import AvailableCourses from "@/pages/AvailableCourses";
 import MyCourses from "@/pages/MyCourses";
-import EnrollModal from "@/components/EnrollModal";
+import InProgress from "@/pages/InProgress";
 
 const routes = [
     {
@@ -17,12 +17,10 @@ const routes = [
         path: '/my-courses',
         name: 'my-courses',
         component: MyCourses,
-
     },
     {
-        path: '/test',
-        name: 'test',
-        component: EnrollModal
+        path: '/:pathMatch(.*)*',
+        component: InProgress
     }
 ]
 

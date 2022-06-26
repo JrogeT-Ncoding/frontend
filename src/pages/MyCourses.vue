@@ -1,6 +1,10 @@
 <template>
   <div v-if="!isAuthenticated">
-    You must be logged in to view this page.
+    <div class="row text-center">
+      <h3>
+        You must be logged in to view this page.
+      </h3>
+    </div>
   </div>
   <div v-else class="container-fluid">
     <div class="row">
