@@ -28,7 +28,8 @@
             </router-link>
           </li>
         </ul>
-        <button class="btn btn-red rounded-0 my-2 my-sm-0" data-bs-toggle="modal" data-bs-target="#authModal">
+        {{ isAuthenticated ? user.fullName : '' }}
+        <button @click="logout" class="btn btn-red rounded-0 my-2 my-sm-0 ms-2" :data-bs-toggle="!isAuthenticated ? 'modal':''" data-bs-target="#authModal">
           {{ isAuthenticated ? 'Logout' : 'Register or Login' }}
         </button>
       </div>
@@ -37,6 +38,8 @@
 </template>
 
 <script>
+import {mapGetters} from "vuex";
+
 export default {
   name: 'AppNavbar',
   props: {
@@ -45,5 +48,13 @@ export default {
       required: true
     }
   },
+  methods: {
+    logout() {
+      this.$store.dispatch('logout')
+    }
+  },
+  computed:{
+    ...mapGetters(['user'])
+  }
 }
 </script>

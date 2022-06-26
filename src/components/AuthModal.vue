@@ -4,7 +4,7 @@
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="btn-close ms-0" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button id="authModalClose" type="button" class="btn-close ms-0" data-bs-dismiss="modal" aria-label="Close"></button>
           <h5 class="modal-title mx-auto" id="exampleModalLabel">
             Log in or sign up
           </h5>
@@ -34,7 +34,7 @@
               <div class="col me-4" style="font-size: 1rem;">
                 <!--Full name-->
                 <div v-if="newUser" class="form-floating mb-3">
-                  <input type="text" class="form-control form-control-sm" placeholder="x">
+                  <input v-model="user.fullName" type="text" class="form-control form-control-sm" placeholder="x">
                   <label>
                     <small>
                       Full name
@@ -43,7 +43,7 @@
                 </div>
                 <!--Email-->
                 <div class="form-floating mb-3">
-                  <input type="email" class="form-control form-control-sm" placeholder="x">
+                  <input v-model="user.email" type="email" class="form-control form-control-sm" placeholder="x">
                   <label>
                     <small>
                       Username (Email Address)
@@ -52,7 +52,7 @@
                 </div>
                 <!--Password-->
                 <div class="form-floating">
-                  <input type="password" class="form-control form-control-sm" placeholder="x">
+                  <input v-model="user.password" type="password" class="form-control form-control-sm" placeholder="x">
                   <label>
                     <small>
                       Your Password
@@ -73,7 +73,7 @@
                 </div>
                 <!--Confirm Password-->
                 <div v-if="newUser" class="form-floating my-3">
-                  <input type="password" class="form-control form-control-sm" placeholder="x">
+                  <input v-model="user.passwordConfirmation" type="password" class="form-control form-control-sm" placeholder="x">
                   <label>
                     <small>
                       Confirm your Password
@@ -82,18 +82,18 @@
                 </div>
                 <!--Country-->
                 <div v-if="newUser" class="form-floating">
-                  <select class="form-select form-select-sm">
+                  <select v-model="user.country" class="form-select form-select-sm">
                     <option selected disabled>Select you country</option>
-                    <option value="1">Argentina</option>
-                    <option value="2">Bolivia</option>
-                    <option value="3">Brazil</option>
-                    <option value="4">Chile</option>
-                    <option value="5">Colombia</option>
-                    <option value="6">Ecuador</option>
-                    <option value="8">Paraguay</option>
-                    <option value="9">Peru</option>
-                    <option value="10">Uruguay</option>
-                    <option value="11">Venezuela</option>
+                    <option value="Argentina">Argentina</option>
+                    <option value="Bolivia">Bolivia</option>
+                    <option value="Brazil">Brazil</option>
+                    <option value="Chile">Chile</option>
+                    <option value="Colombia">Colombia</option>
+                    <option value="Ecuador">Ecuador</option>
+                    <option value="Paraguay">Paraguay</option>
+                    <option value="Peru">Peru</option>
+                    <option value="Uruguay">Uruguay</option>
+                    <option value="Venezuela">Venezuela</option>
                   </select>
                   <label>
                     <small>
@@ -103,7 +103,7 @@
                 </div>
                 <!--Continue-->
                 <div class="form-floating my-3 d-grid gap-2 p-0">
-                  <button class="btn badge rounded-pill text-bg-dark py-2">
+                  <button @click="authenticate" class="btn badge rounded-pill text-bg-dark py-2">
                     Continue
                   </button>
                 </div>
@@ -156,12 +156,32 @@ export default {
   name: "AppAuthModal",
   data() {
     return {
-      newUser: true
+      newUser: false,
+      user: {
+        fullName: "",
+        email: "",
+        password: "",
+        passwordConfirmation: "",
+        country: "Bolivia"
+      }
     };
   },
   methods: {
     toggleNewUser() {
       this.newUser = !this.newUser
+    },
+    authenticate() {
+      if (this.newUser) {
+        if (this.user.password !== this.user.passwordConfirmation) {
+          alert("Passwords do not match");
+          return;
+        }
+        this.$store.dispatch("register", this.user);
+      } else {
+        this.$store.dispatch("login", this.user);
+      }
+      let close = document.getElementById("authModalClose");
+      close.click();
     }
   }
 }

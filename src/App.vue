@@ -9,6 +9,9 @@ export default {
   name: 'App',
   components: {
     BaseLayout
-  }
+  },
+  beforeCreate() {
+    this.$store.commit('initialiseStore');
+  },
 }
 </script>

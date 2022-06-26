@@ -47,18 +47,18 @@
                 <!--Date of Birth-->
                 <div class="col-md">
                   <div class="form-floating">
-                    <input type="date" class="form-control" placeholder="x">
+                    <input v-model="user.birthDate" type="date" class="form-control" placeholder="x">
                     <label>Date of birth</label>
                   </div>
                 </div>
                 <!--Gender-->
                 <div class="col-md">
                   <div class="form-floating">
-                    <select class="form-select">
+                    <select v-model="user.gender" class="form-select">
                       <option selected disabled>Select an option</option>
-                      <option value="1">Female</option>
-                      <option value="2">Male</option>
-                      <option value="3">Other</option>
+                      <option value="Female">Female</option>
+                      <option value="Male">Male</option>
+                      <option value="Other">Other</option>
                     </select>
                     <label>Gender</label>
                   </div>
@@ -68,7 +68,7 @@
               <div class="row align-items-center mt-4 fw-light" style="font-size: 0.75rem;">
                 <div class="col-md">
                   <div class="form-floating">
-                    <input type="text" class="form-control" placeholder="x">
+                    <input v-model="user.address" type="text" class="form-control" placeholder="x">
                     <label>Address</label>
                   </div>
                 </div>
@@ -77,7 +77,7 @@
               <div class="row align-items-center mt-4 fw-light" style="font-size: 0.75rem;">
                 <div class="col-md">
                   <div class="form-floating">
-                    <input type="text" class="form-control" placeholder="x">
+                    <input v-model="user.phone" type="text" class="form-control" placeholder="x">
                     <label>Phone Number</label>
                   </div>
                 </div>
@@ -86,11 +86,11 @@
               <!--Preferred Language-->
               <div class="col-md">
                 <div class="form-floating">
-                  <select class="form-select">
+                  <select  v-model="user.preferredLanguage" class="form-select">
                     <option selected disabled>Select an option</option>
-                    <option value="1">English</option>
-                    <option value="2">Spanish</option>
-                    <option value="3">Other</option>
+                    <option value="English">English</option>
+                    <option value="Spanish">Spanish</option>
+                    <option value="Other">Other</option>
                   </select>
                   <label>Preferred Language</label>
                 </div>
@@ -98,11 +98,11 @@
               <!--Education Level-->
               <div class="col-md">
                 <div class="form-floating">
-                  <select class="form-select">
+                  <select v-model="user.educationLevel" class="form-select">
                     <option selected disabled>Select an option</option>
-                    <option value="1">Bachelor Degree</option>
-                    <option value="2">Master Degree</option>
-                    <option value="3">PhD</option>
+                    <option value="Bachelor Degree">Bachelor Degree</option>
+                    <option value="Master Degree">Master Degree</option>
+                    <option value="PhD">PhD</option>
                   </select>
                   <label>Education Level</label>
                 </div>
@@ -111,7 +111,7 @@
             </div>
             <div v-if="step===2">
               <div class="row">
-                <div @click="setPayment(1)" class="col border border-dark rounded-4 m-2 p-3 text-center payment-option">
+                <div @click="setPayment(1)" class="col border border-dark rounded-4 m-2 p-3 text-center payment-option" :class="paymentOption==1?'bg-gray':''" >
                   <h5>
                     PIF (pay in full)
                   </h5>
@@ -131,7 +131,7 @@
                     No processing fees
                   </h6>
                 </div>
-                <div @click="setPayment(2)" class="col border border-dark rounded-4 m-2 p-3 text-center payment-option">
+                <div @click="setPayment(2)" class="col border border-dark rounded-4 m-2 p-3 text-center payment-option" :class="paymentOption==2?'bg-gray':''" >
                   <h5>
                     16 installments
                   </h5>
@@ -149,7 +149,7 @@
                 </div>
               </div>
               <div class="row">
-                <div @click="setPayment(3)" class="col border border-dark rounded-4 m-2 p-3 text-center payment-option">
+                <div @click="setPayment(3)" class="col border border-dark rounded-4 m-2 p-3 text-center payment-option" :class="paymentOption==3?'bg-gray':''" >
                   <h5>
                     24 installments
                   </h5>
@@ -165,8 +165,8 @@
                     5.99% interest rate
                   </h6>
                 </div>
-                <div @click="setPayment(4)" class="col border border-dark rounded-4 m-2 p-3 text-center payment-option">
-                <h5>
+                <div @click="setPayment(4)" class="col border border-dark rounded-4 m-2 p-3 text-center payment-option" :class="paymentOption==4?'bg-gray':''">
+                  <h5>
                   48 installments
                 </h5>
                 <label class="text-muted">
@@ -185,14 +185,17 @@
             <!--Steps-->
             <div class="row justify-content-between mt-5 d-flex border-top border-gray pt-3">
               <div class="col d-inline-flex">
-                <button v-if="step===1" class="btn rounded-pill btn-dark" data-bs-dismiss="modal">
+                <button v-if="step==1" id="enrollModalClose" class="btn rounded-pill btn-dark" data-bs-dismiss="modal">
                   Close
                 </button>
                 <button v-else @click="prevStep" class="btn rounded-pill btn-dark">
                   Back
                 </button>
-                <button @click="nextStep" class="btn rounded-pill btn-dark ms-auto">
-                  {{ step === 2 ? 'Submit Enrollment' : 'Next' }}
+                <button v-if="step==2" id="enrollModalClose" @click="nextStep" class="btn rounded-pill btn-dark ms-auto" data-bs-dismiss="modal">
+                  Submit Enrollment
+                </button>
+                <button v-else @click="nextStep" class="btn rounded-pill btn-dark ms-auto">
+                  Next
                 </button>
               </div>
             </div>
@@ -210,8 +213,8 @@ export default {
   name: "AppEnrollModal",
   data() {
     return {
-      newUser: true,
-      step: 2,
+      step: 1,
+      paymentOption: 0,
     };
   },
   methods: {
@@ -219,6 +222,14 @@ export default {
       this.newUser = !this.newUser
     },
     nextStep() {
+      if(this.step === 1){
+        this.$store.dispatch("updateUser", this.user);
+      }
+      if(this.step === 2){
+        this.$store.dispatch("enroll", this.course.id);
+        let close = document.getElementById("enrollModalClose");
+        close.click();
+      }
       if (this.step < 2) {
         this.step++;
       }
@@ -242,8 +253,9 @@ export default {
   },
   computed: {
     ...mapGetters({
-      course: "courseToEnroll"
-    })
+      course: "courseToEnroll",
+      user: "user",
+    }),
   }
 }
 </script>

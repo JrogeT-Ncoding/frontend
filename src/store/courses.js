@@ -51,30 +51,49 @@ const courseModule = {
     },
     // actions are async
     actions:{
-        getAvailableCourses({commit}){
+        getAvailableCourses({commit, state, dispatch}) {
             return new Promise((resolve) => {
+                if(state.courses.length > 0) {
+                    resolve()
+                }
                 axios.get('http://localhost:8080/api/courses/available')
                     .then(response => {
-                        setTimeout(() => {
-                            commit('setCourses', response.data.data)
-                            resolve()
-                        }, 1000)
-                    }
-                )
+                        console.log("aslkñdfjd")
+                        commit('setCourses', response.data.data)
+                        dispatch('getMyCourses')
+                        resolve()
+                    })
             })
         },
-        getMyCourses({commit}){
+        getMyCourses({commit, state, rootState}){
             return new Promise((resolve) => {
-                axios.get('http://localhost:8080/api/users/19/courses')
+                if(state.myCourses.length > 0) {
+                    resolve()
+                }
+                axios.get(`http://localhost:8080/api/users/${rootState.auth.user.id}/courses`)
                     .then(response => {
-                            setTimeout(() => {
-                                commit('setMyCourses', response.data.data)
-                                resolve()
-                            }, 1000)
-                        }
-                    )
+                        commit('setMyCourses', response.data.data)
+                        console.log("ajlsdfkj")
+                        resolve()
+                    })
             })
         },
+        enroll({rootState}, courseId) {
+            let data = {
+                user: {
+                    id: rootState.auth.user.id
+                },
+                course: {
+                    id: courseId
+                }
+            }
+            return new Promise((resolve) => {
+                axios.post(`http://localhost:8080/api/users/${rootState.auth.user.id}/enrollments`,data)
+                    .then(() => {
+                        resolve()
+                    })
+            })
+        }
     }
 }
 
