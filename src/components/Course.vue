@@ -3,7 +3,7 @@
     <img :src="course.image" class="card-img-top" style="max-height: 15rem;min-height: 15rem;">
     <label class="ms-3">
       <div class="d-flex" style="margin-top: -2rem;">
-        <span class="badge text-bg-light">{{ course.category }}</span>
+        <span class="badge text-bg-light">{{ course.category.name }}</span>
       </div>
     </label>
     <div class="card-body">
@@ -12,20 +12,20 @@
           {{ course.name }}
         </strong>
       </h5>
-      <p class="card-text text-justify">
+      <p class="card-text" style="min-height: 4rem;max-height: 4rem;">
         <small>
-          {{ course.description.substring(0, 100) + '...' }}
+          {{ ( course.description?.substring(0, 100) || 'No description' ) + '...' }}
         </small>
       </p>
       <p>
         <i class="bi bi-star-fill me-1"></i>
-        <strong>{{ course.rating }}</strong>
-        <small class="text-muted">(422)</small>
+        <strong>{{ course.rate }}</strong>
+        <small class="text-muted ms-1">({{ enrolledCount() }})</small>
       </p>
       <p>
         <i class="bi bi-clock me-1"></i>
         <strong>
-          3:20hs
+          {{ timeFormatted() }}
         </strong>
       </p>
       <!--Continue-->
@@ -58,15 +58,23 @@ export default {
   },
   computed:{
     allowToEnroll(){
-      return this.$store.getters.allowToEnroll(this.course.id)
+      return this.$store.getters.allowToEnroll(this.course.id) && this.$store.getters.isAuthenticated
     },
     allowToViewDetails(){
       return this.$store.getters.allowToViewDetails(this.course.id)
-    }
+    },
   },
   methods: {
     startEnrollment(){
       this.$store.commit('startEnrollment',this.course)
+    },
+    enrolledCount(){
+      return this.course.maxCapacity - this.course.availableCapacity
+    },
+    timeFormatted(){
+      let hours = Math.floor(this.course.duration / 60)
+      let minutes = this.course.duration % 60
+      return `${hours}:${minutes}hs`
     }
   }
 }

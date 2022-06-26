@@ -1,12 +1,17 @@
 <template>
-  <div class="container-fluid">
+  <div v-if="!isAuthenticated">
+    You must be logged in to view this page.
+  </div>
+  <div v-else class="container-fluid">
     <div class="row">
       <h5>
         <strong>My Courses</strong>
       </h5>
     </div>
-    <div v-if="loading">
-      Loading...
+    <div v-if="loading" class="container" style="height: 100vh;">
+      <div class="row h-100 justify-content-center align-items-center">
+        <AppSpinner/>
+      </div>
     </div>
     <div class="row mt-4">
       <div class="col-lg-4 col-md-6" v-for="(course) in myCourses" v-bind:key="course">
@@ -19,10 +24,11 @@
 <script>
 import AppCourse from '../components/Course.vue'
 import {mapGetters} from 'vuex'
+import AppSpinner from '../components/Spinner.vue'
 
 export default {
   name: 'MyCoursesPage',
-  components: { AppCourse },
+  components: { AppCourse, AppSpinner },
   data(){
     return {
       loading : true,
@@ -36,6 +42,7 @@ export default {
   computed: {
     ...mapGetters([
       'myCourses',
+      'isAuthenticated'
     ])
   }
 }

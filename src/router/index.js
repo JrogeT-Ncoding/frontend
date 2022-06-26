@@ -16,7 +16,8 @@ const routes = [
     {
         path: '/my-courses',
         name: 'my-courses',
-        component: MyCourses
+        component: MyCourses,
+
     },
     {
         path: '/test',
