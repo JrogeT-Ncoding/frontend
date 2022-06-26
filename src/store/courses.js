@@ -58,7 +58,6 @@ const courseModule = {
                 }
                 axios.get('http://localhost:8080/api/courses/available')
                     .then(response => {
-                        console.log("aslkñdfjd")
                         commit('setCourses', response.data.data)
                         dispatch('getMyCourses')
                         resolve()
@@ -73,12 +72,12 @@ const courseModule = {
                 axios.get(`http://localhost:8080/api/users/${rootState.auth.user.id}/courses`)
                     .then(response => {
                         commit('setMyCourses', response.data.data)
-                        console.log("ajlsdfkj")
                         resolve()
                     })
             })
         },
-        enroll({rootState}, courseId) {
+        enroll({rootState, dispatch}, courseId) {
+            console.log("enrolling")
             let data = {
                 user: {
                     id: rootState.auth.user.id
@@ -90,6 +89,7 @@ const courseModule = {
             return new Promise((resolve) => {
                 axios.post(`http://localhost:8080/api/users/${rootState.auth.user.id}/enrollments`,data)
                     .then(() => {
+                        dispatch('getAvailableCourses')
                         resolve()
                     })
             })

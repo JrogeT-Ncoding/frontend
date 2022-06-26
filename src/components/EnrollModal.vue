@@ -191,7 +191,10 @@
                 <button v-else @click="prevStep" class="btn rounded-pill btn-dark">
                   Back
                 </button>
-                <button v-if="step==2" id="enrollModalClose" @click="nextStep" class="btn rounded-pill btn-dark ms-auto" data-bs-dismiss="modal">
+                <button v-if="step==2" @click="nextStep" class="btn rounded-pill btn-dark ms-auto" data-bs-dismiss="modal">
+                  Submit Enrollment
+                </button>
+                <button v-else-if="step==3" id="enrollModalClose" class="btn rounded-pill btn-dark ms-auto" data-bs-dismiss="modal">
                   Submit Enrollment
                 </button>
                 <button v-else @click="nextStep" class="btn rounded-pill btn-dark ms-auto">
@@ -226,9 +229,11 @@ export default {
         this.$store.dispatch("updateUser", this.user);
       }
       if(this.step === 2){
-        this.$store.dispatch("enroll", this.course.id);
-        let close = document.getElementById("enrollModalClose");
-        close.click();
+        this.step++;
+        this.$store.dispatch("enroll", this.course.id).then(() => {
+          let close = document.getElementById("enrollModalClose");
+          close.click();
+        })
       }
       if (this.step < 2) {
         this.step++;
