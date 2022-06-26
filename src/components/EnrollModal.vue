@@ -111,7 +111,7 @@
             </div>
             <div v-if="step===2">
               <div class="row">
-                <div class="col border border-gray rounded-4 m-2 p-3 text-center">
+                <div @click="setPayment(1)" class="col border border-dark rounded-4 m-2 p-3 text-center payment-option">
                   <h5>
                     PIF (pay in full)
                   </h5>
@@ -131,7 +131,7 @@
                     No processing fees
                   </h6>
                 </div>
-                <div class="col border border-gray rounded-4 m-2 p-3 text-center">
+                <div @click="setPayment(2)" class="col border border-dark rounded-4 m-2 p-3 text-center payment-option">
                   <h5>
                     16 installments
                   </h5>
@@ -149,7 +149,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col border border-gray rounded-4 m-2 p-3 text-center">
+                <div @click="setPayment(3)" class="col border border-dark rounded-4 m-2 p-3 text-center payment-option">
                   <h5>
                     24 installments
                   </h5>
@@ -165,7 +165,7 @@
                     5.99% interest rate
                   </h6>
                 </div>
-                <div class="col border border-gray rounded-4 m-2 p-3 text-center">
+                <div @click="setPayment(4)" class="col border border-dark rounded-4 m-2 p-3 text-center payment-option">
                 <h5>
                   48 installments
                 </h5>
@@ -211,7 +211,7 @@ export default {
   data() {
     return {
       newUser: true,
-      step: 1,
+      step: 2,
     };
   },
   methods: {
@@ -235,7 +235,10 @@ export default {
         case 2:
           return "Payment Plan";
       }
-    }
+    },
+    setPayment(paymentOption) {
+      this.paymentOption = paymentOption;
+    },
   },
   computed: {
     ...mapGetters({

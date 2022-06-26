@@ -1,6 +1,6 @@
 <template>
   <div class="card border-white p-4">
-    <img :src="course.image" class="card-img-top" style="max-height: 15rem;">
+    <img :src="course.image" class="card-img-top" style="max-height: 15rem;min-height: 15rem;">
     <label class="ms-3">
       <div class="d-flex" style="margin-top: -2rem;">
         <span class="badge text-bg-light">{{ course.category }}</span>
